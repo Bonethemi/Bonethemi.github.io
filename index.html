@@ -1,24 +1,66 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title> Bò Né và Mì</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonethemi - Đọc Truyện Online</title>
+    <style>
+        /* Phong cách tối giản Minimalism */
+        body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: #fff; color: #333; }
+        header { background-color: #728359; color: white; padding: 20px; text-align: center; }
+        
+        /* Menu Tab */
+        nav { display: flex; justify-content: center; background: #f4f4f4; padding: 10px; border-bottom: 2px solid #728359; }
+        nav a { margin: 0 15px; text-decoration: none; color: #728359; font-weight: bold; }
+
+        /* Bố cục danh sách hàng ngang */
+        .container { max-width: 1000px; margin: 20px auto; padding: 0 20px; }
+        .section-title { border-left: 5px solid #728359; padding-left: 10px; margin-bottom: 20px; }
+        
+        .comic-item { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #eee; transition: 0.3s; }
+        .comic-item:hover { background: #f9f9f9; }
+        .comic-cover { width: 80px; height: 110px; background: #ddd; margin-right: 20px; border-radius: 4px; object-fit: cover; }
+        .comic-info h3 { margin: 0 0 5px 0; color: #728359; }
+        .comic-info p { margin: 0; font-size: 14px; color: #666; }
+
+        /* Nút đọc truyện / Chuyển chương */
+        .btn-read { display: inline-block; margin-top: 10px; padding: 8px 20px; background: #728359; color: white; text-decoration: none; border-radius: 5px; }
+        
+        /* Chỗ đặt quảng cáo chương tiếp theo */
+        .ad-placeholder { background: #f0f0f0; border: 2px dashed #728359; padding: 20px; text-align: center; margin: 20px 0; font-weight: bold; }
+    </style>
 </head>
 <body>
-  <h1>📚 Bò Né và Mì</h1>
 
-  <p>
-    Chào mừng bạn đến với góc đọc truyện của chúng mình.
-  </p>
+<header>
+    <h1>Bonethemi</h1>
+    <p>Đắm chìm vào thế giới riêng của từng trang sách</p>
+</header>
 
-  <h2>Danh sách truyện</h2>
-  <ul>
-    <li>
-      <a href="truyen/truyen-1/">📖 Ánh Trăng Cuối Ngõ</a>
-    </li>
-    <li>
-      <a href="truyen/truyen-2/">📖 Người Qua Đêm Mưa</a>
-    </li>
-  </ul>
+<nav>
+    <a href="#">Truyện mới cập nhật</a>
+    <a href="#">Ngược</a>
+    <a href="#">Thể loại khác</a>
+</nav>
+
+<div class="container">
+    <h2 class="section-title">Truyện Mới Cập Nhật</h2>
+    
+    <div class="comic-item">
+        <div class="comic-cover" style="background-image: url('link-anh-cua-ban.jpg');"></div>
+        <div class="comic-info">
+            <h3>Tên Bộ Truyện Đầu Tiên</h3>
+            <p>Thể loại: Ngược, Ngôn tình</p>
+            <p>Tóm tắt ngắn gọn nội dung bộ truyện tại đây...</p>
+            <a href="chapter1.html" class="btn-read">Đọc ngay</a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Chỗ này sau này dán code từ Adsterra vào nè
+</script>
+
 </body>
 </html>
