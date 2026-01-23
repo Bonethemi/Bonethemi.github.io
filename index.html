@@ -684,9 +684,37 @@ transition: background-color 0.3s;
 
 
 
-        <h2 class="section-title">Truyện Mới Cập Nhật</h2>
+       <h2 class="section-title">Truyện Mới Cập Nhật</h2>
 
-        <p style="color: var(--text-sub);">Danh sách truyện sẽ hiện ở đây...</p>
+<div style="display: grid; gap: 20px;">
+    {% for post in site.posts %}
+    <div class="story-card">
+        <div class="story-thumb">
+            <i class="fas fa-book-open"></i>
+        </div>
+        <div class="story-info">
+            <h3 class="story-title">
+                <a href="{{ post.url }}" style="text-decoration: none; color: inherit;">
+                    {{ post.title }}
+                </a>
+            </h3>
+            <span class="story-meta">
+                Thể loại: {{ post.category | default: "Truyện ngắn" }} • {{ post.date | date: "%d/%m/%Y" }}
+            </span>
+            <p class="story-desc">
+                {{ post.excerpt | strip_html | truncatewords: 25 }}
+            </p>
+            <a href="{{ post.url }}" class="btn btn-login btn-read" style="text-decoration: none; display: inline-block;">Đọc Ngay</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if site.posts.size == 0 %}
+    <p style="text-align: center; color: var(--text-sub); padding: 20px;">
+        Chưa có chương truyện nào. Hãy thêm file vào thư mục _posts nhé!
+    </p>
+{% endif %}
 
 
 
