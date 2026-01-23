@@ -8,40 +8,48 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        /* --- 1. CẤU HÌNH MÀU SẮC (THEME SYSTEM) --- */
         :root {
+            /* MÀU CỐ ĐỊNH (Thương hiệu) */
             --primary-green: #728359; 
             --hover-green: #5c6b47;
-            --bg-body: #f9f9f9;
-            --bg-header: #ffffff;
-            --bg-card: #ffffff;
-            --text-main: #333333;
-            --text-sub: #666666;
-            --bg-accent: #EDF1E8;
-            --border-color: #e0e0e0;
-            --input-bg: #f5f5f5;
-            --shadow: 0 2px 15px rgba(0,0,0,0.1);
+
+            /* GIAO DIỆN SÁNG (Mặc định) */
+            --bg-body: #f9f9f9;           /* Nền trang */
+            --bg-header: #ffffff;         /* Nền thanh menu */
+            --bg-card: #ffffff;           /* Nền khung truyện */
+            --text-main: #333333;         /* Màu chữ chính */
+            --text-sub: #666666;          /* Màu chữ phụ */
+            --bg-accent: #EDF1E8;         /* Màu nền trang trí (xanh nhạt) */
+            --border-color: #e0e0e0;      /* Màu đường viền */
+            --input-bg: #f5f5f5;          /* Nền ô tìm kiếm */
+            --shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
 
+        /* GIAO DIỆN TỐI (Dark Mode) */
         [data-theme="dark"] {
-            --bg-body: #121212;
-            --bg-header: #1E1E1E;
-            --bg-card: #1E1E1E;
-            --text-main: #E0E0E0;
-            --text-sub: #A0A0A0;
-            --bg-accent: #2A3022;
-            --border-color: #333333;
-            --input-bg: #2C2C2C;
+            --bg-body: #121212;           /* Nền đen dịu */
+            --bg-header: #1E1E1E;         /* Nền header tối */
+            --bg-card: #1E1E1E;           /* Nền thẻ tối */
+            --text-main: #E0E0E0;         /* Chữ trắng ngà */
+            --text-sub: #A0A0A0;          /* Chữ xám sáng */
+            --bg-accent: #2A3022;         /* Màu nền trang trí (phiên bản tối) */
+            --border-color: #333333;      /* Viền tối */
+            --input-bg: #2C2C2C;          /* Nền ô tìm kiếm tối */
+            --shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
+        /* --- 2. CSS CHUNG --- */
         body {
             margin: 0;
+            padding: 0;
             font-family: 'Quicksand', sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
-            transition: 0.3s;
+            transition: background-color 0.3s, color 0.3s; /* Hiệu ứng chuyển màu mượt */
         }
 
-        /* HEADER */
+        /* --- 3. HEADER (Thanh trên cùng) --- */
         header {
             background-color: var(--bg-header);
             padding: 15px 30px;
@@ -49,182 +57,325 @@
             align-items: center;
             justify-content: space-between;
             box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-            position: sticky; top: 0; z-index: 1000;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s;
         }
 
-        .logo-wrapper { display: flex; align-items: center; text-decoration: none; gap: 10px; }
-        .logo-text { font-size: 26px; font-weight: 800; color: var(--primary-green); }
+        /* Logo */
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 10px;
+        }
 
-        .search-container { flex-grow: 1; max-width: 400px; margin: 0 30px; position: relative; }
+        .logo-text {
+            font-size: 26px;
+font-weight: 800; /* Chữ siêu đậm */
+            color: var(--primary-green);
+        }
+
+        /* Ô tìm kiếm */
+        .search-container {
+            flex-grow: 1;
+            max-width: 500px;
+            margin: 0 30px;
+            position: relative;
+        }
+
         .search-input {
-            width: 100%; padding: 10px 20px 10px 45px; border: 1px solid var(--border-color);
-            border-radius: 50px; background-color: var(--input-bg); color: var(--text-main); outline: none;
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border: 1px solid var(--border-color);
+            border-radius: 50px; /* Bo tròn mạnh */
+            outline: none;
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            font-family: inherit;
+            transition: all 0.3s;
         }
-        .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--text-sub); }
 
-        .header-right { display: flex; align-items: center; gap: 15px; }
-
-        /* NÚT BẤM */
-        .btn { padding: 8px 18px; border-radius: 20px; border: none; font-weight: 700; cursor: pointer; transition: 0.2s; font-family: inherit; }
-        .btn-login { background-color: var(--primary-green); color: #fff; }
-        .btn-register { background-color: transparent; border: 2px solid var(--primary-green); color: var(--primary-green); }
-
-        /* TRẠNG THÁI ĐÃ ĐĂNG NHẬP */
-        #user-info { display: none; align-items: center; gap: 10px; font-weight: 700; color: var(--primary-green); }
-        #user-info i { font-size: 20px; }
-
-        /* MODAL (CỬA SỔ HIỆN LÊN) */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 2000;
+        .search-input:focus {
+            border-color: var(--primary-green);
+            background-color: var(--bg-card);
+            box-shadow: 0 0 0 3px rgba(114, 131, 89, 0.15);
         }
-        .modal-content {
-            background: var(--bg-card); padding: 30px; border-radius: 15px;
-            width: 100%; max-width: 350px; box-shadow: var(--shadow); position: relative;
-        }
-        .modal-content h2 { margin-top: 0; color: var(--primary-green); text-align: center; }
-        .modal-content input {
-            width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px;
-            border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-main); box-sizing: border-box;
-        }
-        .close-modal { position: absolute; top: 10px; right: 15px; cursor: pointer; font-size: 20px; color: var(--text-sub); }
 
-        /* POPUP THÔNG BÁO */
-        #notification-popup {
-            position: fixed; bottom: 20px; right: 20px; background: var(--bg-card);
-            padding: 20px; border-radius: 12px; box-shadow: var(--shadow);
-            max-width: 300px; display: none; z-index: 3000; border: 2px solid var(--primary-green);
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-sub);
         }
-        .popup-btns { display: flex; gap: 10px; margin-top: 15px; }
-        .btn-yes { background: var(--primary-green); color: white; flex: 1; }
-        .btn-no { background: var(--text-sub); color: white; flex: 1; }
 
-        .nav-bar { background-color: var(--bg-header); border-bottom: 1px solid var(--border-color); padding: 0 30px; height: 50px; display: flex; align-items: center; }
-        .nav-link { text-decoration: none; color: var(--text-main); font-weight: 600; margin-right: 25px; font-size: 14px; }
-        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        /* Khu vực bên phải (Darkmode + Auth) */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Nút mặt trăng */
+        .theme-toggle-btn {
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: var(--bg-accent);
+            color: var(--primary-green);
+            transform: rotate(15deg);
+        }
+
+        /* Nút Đăng nhập/Đăng ký */
+        .auth-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-login {
+            background-color: var(--primary-green);
+            color: #fff;
+        }
+
+        .btn-login:hover {
+            background-color: var(--hover-green);
+        }
+
+        .btn-register {
+            background-color: transparent;
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+        }
+        
+        .btn-register:hover {
+            background-color: var(--primary-green);
+            color: #fff;
+        }
+
+        /* --- 4. THANH MENU (NAVIGATION) --- */
+        .nav-bar {
+            background-color: var(--bg-header);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 30px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            overflow-x: auto; /* Cuộn ngang trên điện thoại */
+transition: background-color 0.3s;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 15px;
+            margin-right: 30px;
+            white-space: nowrap;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-green);
+        }
+
+        .nav-link i {
+            font-size: 12px;
+            margin-left: 5px;
+            color: var(--text-sub);
+        }
+
+        /* --- 5. NỘI DUNG CHÍNH --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Khu vực Đề cử (Featured) */
+        .hero-section {
+            background-color: var(--bg-accent);
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 50px;
+            transition: background-color 0.3s;
+        }
+
+        .section-title {
+            color: var(--primary-green);
+            font-size: 22px;
+            text-transform: uppercase;
+            font-weight: 800;
+            margin-top: 0;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary-green);
+            padding-left: 15px;
+        }
+
+        /* Card truyện mẫu */
+        .story-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            gap: 25px;
+            box-shadow: var(--shadow);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .story-thumb {
+            width: 120px;
+            height: 180px;
+            background-color: #d1dac5; /* Màu giữ chỗ cho ảnh */
+            border-radius: 8px;
+            flex-shrink: 0; /* Không bị co lại */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-green);
+            font-weight: bold;
+        }
+
+        .story-info {
+            flex-grow: 1;
+        }
+
+        .story-title {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            color: var(--text-main);
+        }
+
+        .story-meta {
+            color: var(--primary-green);
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .story-desc {
+            color: var(--text-sub);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .btn-read {
+            padding: 8px 25px;
+            font-size: 14px;
+            border-radius: 20px;
+        }
+
     </style>
 </head>
 <body>
 
     <header>
         <a href="#" class="logo-wrapper">
-            <i class="fas fa-leaf" style="color: var(--primary-green);"></i>
+            <i class="fas fa-leaf fa-lg" style="color: var(--primary-green);"></i>
             <span class="logo-text">Bò né và Mì</span>
         </a>
 
         <div class="search-container">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" class="search-input" placeholder="Tìm truyện...">
+<i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Tìm truyện, tác giả...">
         </div>
 
         <div class="header-right">
-            <button class="theme-toggle-btn" id="theme-btn" style="background:none; border:none; cursor:pointer; font-size:20px; color:var(--text-main);"><i class="fas fa-moon"></i></button>
-            
-            <div id="auth-section" class="auth-btns">
-                <button class="btn btn-login" onclick="openModal('login')">Đăng nhập</button>
-                <button class="btn btn-register" onclick="openModal('register')">Đăng ký</button>
-            </div>
+            <button class="theme-toggle-btn" id="theme-btn" title="Chế độ tối">
+                <i class="fas fa-moon"></i>
+            </button>
 
-            <div id="user-info">
-                <i class="fas fa-user-circle"></i>
-                <span id="display-name">Người dùng</span>
+            <div class="auth-btns">
+                <button class="btn btn-login">Đăng nhập</button>
+                <button class="btn btn-register">Đăng ký</button>
             </div>
         </div>
     </header>
 
     <nav class="nav-bar">
         <a href="#" class="nav-link">Truyện mới</a>
-        <a href="#" class="nav-link">Thể loại</a>
+        <a href="#" class="nav-link">Thể loại <i class="fas fa-chevron-down"></i></a>
         <a href="#" class="nav-link">Truyện Full</a>
+        <a href="#" class="nav-link">Tiên Hiệp</a>
+        <a href="#" class="nav-link">Ngôn Tình</a>
+        <a href="#" class="nav-link">Đam Mỹ</a>
+        <a href="#" class="nav-link">Bách Hợp</a>
     </nav>
 
     <main class="container">
-        <h2 style="color: var(--primary-green);">Chào mừng bạn đến với Bò né và Mì</h2>
-        <p>Nơi lưu giữ những trang sách đầy cảm xúc.</p>
+        
+        <section class="hero-section">
+            <h2 class="section-title">Đề cử hôm nay</h2>
+            
+            <div class="story-card">
+                <div class="story-thumb">
+                    Ảnh Bìa
+                </div>
+                <div class="story-info">
+                    <h3 class="story-title">Tên Bộ Truyện Đầu Tiên</h3>
+                    <span class="story-meta">Tác giả: Mì Cay • Thể loại: Ngược, Sủng</span>
+                    <p class="story-desc">
+                        Đây là phần tóm tắt nội dung truyện. Trang web hiện tại đã được nâng cấp giao diện chuẩn theo yêu cầu, với tông màu xanh rêu thương hiệu và tính năng Dark Mode bảo vệ mắt...
+                    </p>
+                    <button class="btn btn-login btn-read">Đọc Ngay</button>
+                </div>
+            </div>
+        </section>
+
+        <h2 class="section-title">Truyện Mới Cập Nhật</h2>
+        <p style="color: var(--text-sub);">Danh sách truyện sẽ hiện ở đây...</p>
+
     </main>
 
-    <div class="modal-overlay" id="modal-overlay">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <div id="login-form" style="display:none;">
-                <h2>Đăng Nhập</h2>
-                <input type="email" placeholder="Email của bạn">
-                <input type="password" placeholder="Mật khẩu">
-                <button class="btn btn-login" style="width:100%; margin-top:10px;" onclick="fakeLogin()">Đăng nhập ngay</button>
-            </div>
-            <div id="register-form" style="display:none;">
-                <h2>Đăng Ký</h2>
-                <input type="text" id="reg-name" placeholder="Tên người dùng">
-                <input type="email" id="reg-email" placeholder="Email">
-                <input type="password" placeholder="Đặt mật khẩu">
-                <button class="btn btn-login" style="width:100%; margin-top:10px;" onclick="fakeRegister()">Đăng ký</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="notification-popup">
-        <b style="color:var(--primary-green)">Thông báo mới!</b>
-        <p style="font-size: 14px; margin: 10px 0;">Bạn có muốn nhận thông báo ra truyện của Bò né và Mì không?</p>
-        <div class="popup-btns">
-            <button class="btn btn-yes" onclick="closePopup()">Có</button>
-            <button class="btn btn-no" onclick="closePopup()">Không</button>
-        </div>
-    </div>
-
     <script>
-        // XỬ LÝ MODAL
-        function openModal(type) {
-            document.getElementById('modal-overlay').style.display = 'flex';
-            document.getElementById('login-form').style.display = (type === 'login') ? 'block' : 'none';
-            document.getElementById('register-form').style.display = (type === 'register') ? 'block' : 'none';
-        }
-
-        function closeModal() {
-            document.getElementById('modal-overlay').style.display = 'none';
-        }
-
-        // GIẢ LẬP ĐĂNG KÝ (Tự động đăng nhập luôn)
-        function fakeRegister() {
-            const name = document.getElementById('reg-name').value || "Thành viên mới";
-            doLoginSuccess(name);
-        }
-
-        function fakeLogin() {
-            doLoginSuccess("Người dùng");
-        }
-
-        function doLoginSuccess(name) {
-            closeModal();
-            // Ẩn nút đăng nhập, hiện tên user
-            document.getElementById('auth-section').style.display = 'none';
-            document.getElementById('user-info').style.display = 'flex';
-            document.getElementById('display-name').innerText = name;
-
-            // Hiện Popup thông báo sau 1 giây khi đăng nhập/đăng ký xong
-            setTimeout(() => {
-                document.getElementById('notification-popup').style.display = 'block';
-            }, 1000);
-        }
-
-        function closePopup() {
-            document.getElementById('notification-popup').style.display = 'none';
-        }
-
-        // DARK MODE
         const themeBtn = document.getElementById('theme-btn');
+        const themeIcon = themeBtn.querySelector('i');
+        const body = document.body;
+
+        // 1. Kiểm tra xem người dùng đã từng chọn Dark Mode chưa
+        const savedTheme = localStorage.getItem('theme');
+
+        // Nếu đã lưu là 'dark', thì bật chế độ tối ngay khi tải trang
+        if (savedTheme === 'dark') {
+            body.setAttribute('data-theme', 'dark');
+            themeIcon.classList.replace('fa-moon', 'fa-sun'); // Đổi icon thành mặt trời
+        }
+
+        // 2. Sự kiện khi bấm nút
         themeBtn.addEventListener('click', () => {
-            const isDark = document.body.hasAttribute('data-theme');
-            if (isDark) {
-                document.body.removeAttribute('data-theme');
-                themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+            const currentTheme = body.getAttribute('data-theme');
+
+            if (currentTheme === 'dark') {
+                // Đang tối -> Chuyển sang sáng
+body.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
             } else {
-                document.body.setAttribute('data-theme', 'dark');
-                themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
+                // Đang sáng -> Chuyển sang tối
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
             }
         });
-    </script>
-</body>
-</html>
     </script>
 </body>
 </html>
