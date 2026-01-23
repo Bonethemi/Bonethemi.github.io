@@ -3,64 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bò né và Mì - Đọc Truyện Online</title>
+    <title>Bò né và Mì - Đọc truyện online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        /* Phong cách tối giản Minimalism */
-        body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: #fff; color: #333; }
-        header { background-color: #728359; color: white; padding: 20px; text-align: center; }
-        
-        /* Menu Tab */
-        nav { display: flex; justify-content: center; background: #f4f4f4; padding: 10px; border-bottom: 2px solid #728359; }
-        nav a { margin: 0 15px; text-decoration: none; color: #728359; font-weight: bold; }
+        /* --- 1. CẤU HÌNH MÀU SẮC CHUẨN --- */
+        :root {
+            --primary-green: #728359; /* Mã màu chính bạn cung cấp */
+            --light-green-bg: #EDF1E8; /* Màu nền xanh rất nhạt (tương tự phần hồng ở mẫu) */
+            --hover-green: #5c6b47;   /* Màu đậm hơn một chút khi di chuột */
+            --text-dark: #333;
+            --text-light: #666;
+        }
 
-        /* Bố cục danh sách hàng ngang */
-        .container { max-width: 1000px; margin: 20px auto; padding: 0 20px; }
-        .section-title { border-left: 5px solid #728359; padding-left: 10px; margin-bottom: 20px; }
-        
-        .comic-item { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #eee; transition: 0.3s; }
-        .comic-item:hover { background: #f9f9f9; }
-        .comic-cover { width: 80px; height: 110px; background: #ddd; margin-right: 20px; border-radius: 4px; object-fit: cover; }
-        .comic-info h3 { margin: 0 0 5px 0; color: #728359; }
-        .comic-info p { margin: 0; font-size: 14px; color: #666; }
+        body {
+            margin: 0;
+            font-family: 'Quicksand', sans-serif;
+            background-color: #f9f9f9; /* Nền web màu xám rất nhẹ */
+            color: var(--text-dark);
+        }
 
-        /* Nút đọc truyện / Chuyển chương */
-        .btn-read { display: inline-block; margin-top: 10px; padding: 8px 20px; background: #728359; color: white; text-decoration: none; border-radius: 5px; }
+        /* --- 2. HEADER (Thanh trên cùng màu trắng) --- */
+        header {
+            background-color: #ffffff;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Logo trái, Tìm kiếm giữa, Nút phải */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Bóng mờ nhẹ bên dưới */
+            position: sticky; /* Giữ cố định khi cuộn */
+            top: 0;
+            z-index: 100;
+        }
+
+        /* Logo chữ */
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--primary-green); /* Dùng màu xanh chính */
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Thanh tìm kiếm ở giữa */
+        .search-box-wrapper {
+            flex-grow: 1; /* Chiếm không gian còn thừa */
+            max-width: 500px;
+            margin: 0 30px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px 10px 40px; /* Chừa chỗ cho icon kính lúp */
+            border: 1px solid #e0e0e0;
+            border-radius: 30px; /* Bo tròn mạnh */
+            outline: none;
+            font-family: inherit;
+            background-color: #f5f5f5;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            background-color: #fff;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(114, 131, 89, 0.1); /* Hiệu ứng sáng khi bấm vào */
+        }
+
+        .search-icon-fa {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        /* Khu vực nút bấm bên phải */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .dark-mode-toggle {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .auth-btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border-radius: 20px; /* Nút bo tròn */
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            border: none;
+            transition: background-color 0.2s;
+        }
+
+        /* Nút Đăng nhập (Màu xanh chính) */
+        .btn-login {
+            background-color: var(--primary-green);
+            color: white;
+        }
         
-        /* Chỗ đặt quảng cáo chương tiếp theo */
-        .ad-placeholder { background: #f0f0f0; border: 2px dashed #728359; padding: 20px; text-align: center; margin: 20px 0; font-weight: bold; }
+        .btn-login:hover {
+            background-color: var(--hover-green);
+        }
+
+        /* Nút Đăng ký (Màu nhạt hơn chút hoặc giống hệt cũng được) */
+        .btn-register {
+            background-color: var(--primary-green);
+            color: white;
+            opacity: 0.9;
+        }
+        
+        .btn-register:hover {
+            opacity: 1;
+            background-color: var(--hover-green);
+        }
+
+        /* --- 3. THANH MENU ĐIỀU HƯỚNG --- */
+        .nav-menu-bar {
+            background-color: #ffffff;
+            padding: 0 30px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            height: 50px; /* Chiều cao cố định */
+            align-items: center;
+            overflow-x: auto; /* Cho phép cuộn ngang trên mobile */
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 15px;
+            margin-right: 25px;
+            white-space: nowrap; /* Không xuống dòng */
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-green);
+        }
+        
+        .nav-link i {
+            font-size: 12px;
+            margin-left: 4px;
+            color: #999;
+        }
+
+        /* --- 4. NỘI DUNG CHÍNH --- */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Khu vực "Đề cử hôm nay" (Nền xanh nhạt) */
+        .featured-section {
+            background-color: var(--light-green-bg); /* Sử dụng màu nền xanh nhạt */
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .section-heading {
+            margin-top: 0;
+            color: var(--primary-green);
+            font-size: 20px;
+            text-transform: uppercase;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        /* Thẻ truyện mẫu */
+        .story-item-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            gap: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            align-items: flex-start;
+        }
+
+        .story-cover-placeholder {
+            width: 90px;
+            height: 130px;
+            background-color: #dce4d3; /* Màu giữ chỗ cho ảnh bìa */
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .story-details h3 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            color: var(--text-dark);
+        }
+        
+        .story-meta {
+            font-size: 13px;
+            color: var(--primary-green);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .story-summary {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.5;
+            margin: 0 0 15px 0;
+        }
+
+        .btn-read-now {
+            padding: 6px 16px;
+            font-size: 13px;
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Bò né và Mì</h1>
-    <p>Đắm chìm vào thế giới riêng của từng trang sách</p>
-</header>
+    <header>
+        <a href="#" class="logo-text">
+            <i class="fas fa-leaf"></i> Bò né và Mì
+        </a>
 
-<nav>
-    <a href="#">Truyện mới cập nhật</a>
-    <a href="#">Ngược</a>
-    <a href="#">Thể loại khác</a>
-</nav>
-
-<div class="container">
-    <h2 class="section-title">Truyện Mới Cập Nhật</h2>
-    
-    <div class="comic-item">
-        <div class="comic-cover" style="background-image: url('link-anh-cua-ban.jpg');"></div>
-        <div class="comic-info">
-            <h3>Tên Bộ Truyện Đầu Tiên</h3>
-            <p>Thể loại: Ngược, Ngôn tình</p>
-            <p>Tóm tắt ngắn gọn nội dung bộ truyện tại đây...</p>
-            <a href="chapter1.html" class="btn-read">Đọc ngay</a>
+        <div class="search-box-wrapper">
+            <i class="fas fa-search search-icon-fa"></i>
+            <input type="text" class="search-input" placeholder="Tìm truyện, tác giả...">
         </div>
-    </div>
 
-</div>
+        <div class="header-actions">
+            <button class="dark-mode-toggle" title="Chế độ tối">
+                <i class="far fa-moon"></i>
+            </button>
+            <div class="auth-btn-group">
+                <button class="btn btn-login">Đăng nhập</button>
+                <button class="btn btn-register">Đăng ký</button>
+            </div>
+        </div>
+    </header>
 
-<script>
-    // Chỗ này sau này dán code từ Adsterra vào nè
-</script>
+    <nav class="nav-menu-bar">
+        <a href="#" class="nav-link">Truyện mới</a>
+        <a href="#" class="nav-link">Thể loại <i class="fas fa-chevron-down"></i></a>
+        <a href="#" class="nav-link">Truyện Full</a>
+        <a href="#" class="nav-link">Truyện Hot</a>
+        <a href="#" class="nav-link">Truyện Dài</a>
+        <a href="#" class="nav-link">Tiểu Thuyết</a>
+        <a href="#" class="nav-link">Tác giả/Dịch giả</a>
+    </nav>
+
+    <main class="main-container">
+        
+        <section class="featured-section">
+            <h2 class="section-heading">Đề cử hôm nay</h2>
+            
+            <div class="story-item-card">
+                <div class="story-cover-placeholder"></div> <div class="story-details">
+                    <h3>Tên Bộ Truyện Đầu Tiên</h3>
+                    <span class="story-meta">Thể loại: Ngược, Ngôn tình, Sủng</span>
+                    <p class="story-summary">Tóm tắt ngắn gọn nội dung bộ truyện sẽ hiển thị ở đây. Đây là một câu chuyện đầy cảm xúc về tình yêu và thử thách...</p>
+                    <button class="btn btn-login btn-read-now">Đọc ngay</button>
+                </div>
+            </div>
+        </section>
+
+        <h2 style="font-size: 20px; color: var(--text-dark); margin-bottom: 20px;">
+            <i class="far fa-clock" style="color: var(--primary-green); margin-right: 8px;"></i>
+            Truyện Mới Cập Nhật
+        </h2>
+        </main>
 
 </body>
 </html>
