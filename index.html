@@ -3,98 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bò né và Mì - Truyện Chữ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <title>Bò né và Mì - Đọc truyện online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
             --primary-green: #728359; 
+            --hover-green: #5c6b47;
             --bg-body: #f9f9f9;
+            --bg-header: #ffffff;
             --bg-card: #ffffff;
-            --text-main: #333;
-            --border: #e0e0e0;
+            --text-main: #333333;
+            --text-sub: #666666;
+            --bg-accent: #EDF1E8;
+            --border-color: #e0e0e0;
+            --input-bg: #f5f5f5;
+            --shadow: 0 2px 15px rgba(0,0,0,0.1);
         }
+
         [data-theme="dark"] {
             --bg-body: #121212;
+            --bg-header: #1E1E1E;
             --bg-card: #1E1E1E;
             --text-main: #E0E0E0;
-            --border: #333;
+            --text-sub: #A0A0A0;
+            --bg-accent: #2A3022;
+            --border-color: #333333;
+            --input-bg: #2C2C2C;
         }
-        body { margin: 0; font-family: 'Quicksand', sans-serif; background: var(--bg-body); color: var(--text-main); transition: 0.3s; }
-        header { background: var(--bg-card); padding: 15px 30px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 1px 4px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
-        .logo { font-size: 24px; font-weight: 800; color: var(--primary-green); text-decoration: none; }
-        .container { max-width: 800px; margin: 30px auto; padding: 0 20px; }
-        
-        /* Khu vực hiển thị nội dung truyện */
-        #content-area { background: var(--bg-card); padding: 40px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); line-height: 1.8; font-size: 18px; }
-        .btn { padding: 10px 25px; border-radius: 25px; border: none; font-weight: 700; cursor: pointer; background: var(--primary-green); color: white; margin-top: 20px; }
-        
-        /* Modal & Popup */
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; }
-        .modal-content { background: var(--bg-card); padding: 30px; border-radius: 15px; width: 300px; text-align: center; }
-        #popup { position: fixed; bottom: 20px; right: 20px; background: var(--bg-card); padding: 20px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); display: none; border: 2px solid var(--primary-green); }
+
+        body {
+            margin: 0;
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            transition: 0.3s;
+        }
+
+        /* HEADER */
+        header {
+            background-color: var(--bg-header);
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 1000;
+        }
+
+        .logo-wrapper { display: flex; align-items: center; text-decoration: none; gap: 10px; }
+        .logo-text { font-size: 26px; font-weight: 800; color: var(--primary-green); }
+
+        .search-container { flex-grow: 1; max-width: 400px; margin: 0 30px; position: relative; }
+        .search-input {
+            width: 100%; padding: 10px 20px 10px 45px; border: 1px solid var(--border-color);
+            border-radius: 50px; background-color: var(--input-bg); color: var(--text-main); outline: none;
+        }
+        .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--text-sub); }
+
+        .header-right { display: flex; align-items: center; gap: 15px; }
+
+        /* NÚT BẤM */
+        .btn { padding: 8px 18px; border-radius: 20px; border: none; font-weight: 700; cursor: pointer; transition: 0.2s; font-family: inherit; }
+        .btn-login { background-color: var(--primary-green); color: #fff; }
+        .btn-register { background-color: transparent; border: 2px solid var(--primary-green); color: var(--primary-green); }
+
+        /* TRẠNG THÁI ĐÃ ĐĂNG NHẬP */
+        #user-info { display: none; align-items: center; gap: 10px; font-weight: 700; color: var(--primary-green); }
+        #user-info i { font-size: 20px; }
+
+        /* MODAL (CỬA SỔ HIỆN LÊN) */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 2000;
+        }
+        .modal-content {
+            background: var(--bg-card); padding: 30px; border-radius: 15px;
+            width: 100%; max-width: 350px; box-shadow: var(--shadow); position: relative;
+        }
+        .modal-content h2 { margin-top: 0; color: var(--primary-green); text-align: center; }
+        .modal-content input {
+            width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px;
+            border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-main); box-sizing: border-box;
+        }
+        .close-modal { position: absolute; top: 10px; right: 15px; cursor: pointer; font-size: 20px; color: var(--text-sub); }
+
+        /* POPUP THÔNG BÁO */
+        #notification-popup {
+            position: fixed; bottom: 20px; right: 20px; background: var(--bg-card);
+            padding: 20px; border-radius: 12px; box-shadow: var(--shadow);
+            max-width: 300px; display: none; z-index: 3000; border: 2px solid var(--primary-green);
+        }
+        .popup-btns { display: flex; gap: 10px; margin-top: 15px; }
+        .btn-yes { background: var(--primary-green); color: white; flex: 1; }
+        .btn-no { background: var(--text-sub); color: white; flex: 1; }
+
+        .nav-bar { background-color: var(--bg-header); border-bottom: 1px solid var(--border-color); padding: 0 30px; height: 50px; display: flex; align-items: center; }
+        .nav-link { text-decoration: none; color: var(--text-main); font-weight: 600; margin-right: 25px; font-size: 14px; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
     </style>
 </head>
 <body>
 
-<header>
-    <a href="#" class="logo">Bò né và Mì</a>
-    <div id="auth-section">
-        <button class="btn" style="margin-top:0" onclick="showModal()">Đăng ký</button>
+    <header>
+        <a href="#" class="logo-wrapper">
+            <i class="fas fa-leaf" style="color: var(--primary-green);"></i>
+            <span class="logo-text">Bò né và Mì</span>
+        </a>
+
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Tìm truyện...">
+        </div>
+
+        <div class="header-right">
+            <button class="theme-toggle-btn" id="theme-btn" style="background:none; border:none; cursor:pointer; font-size:20px; color:var(--text-main);"><i class="fas fa-moon"></i></button>
+            
+            <div id="auth-section" class="auth-btns">
+                <button class="btn btn-login" onclick="openModal('login')">Đăng nhập</button>
+                <button class="btn btn-register" onclick="openModal('register')">Đăng ký</button>
+            </div>
+
+            <div id="user-info">
+                <i class="fas fa-user-circle"></i>
+                <span id="display-name">Người dùng</span>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-bar">
+        <a href="#" class="nav-link">Truyện mới</a>
+        <a href="#" class="nav-link">Thể loại</a>
+        <a href="#" class="nav-link">Truyện Full</a>
+    </nav>
+
+    <main class="container">
+        <h2 style="color: var(--primary-green);">Chào mừng bạn đến với Bò né và Mì</h2>
+        <p>Nơi lưu giữ những trang sách đầy cảm xúc.</p>
+    </main>
+
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="login-form" style="display:none;">
+                <h2>Đăng Nhập</h2>
+                <input type="email" placeholder="Email của bạn">
+                <input type="password" placeholder="Mật khẩu">
+                <button class="btn btn-login" style="width:100%; margin-top:10px;" onclick="fakeLogin()">Đăng nhập ngay</button>
+            </div>
+            <div id="register-form" style="display:none;">
+                <h2>Đăng Ký</h2>
+                <input type="text" id="reg-name" placeholder="Tên người dùng">
+                <input type="email" id="reg-email" placeholder="Email">
+                <input type="password" placeholder="Đặt mật khẩu">
+                <button class="btn btn-login" style="width:100%; margin-top:10px;" onclick="fakeRegister()">Đăng ký</button>
+            </div>
+        </div>
     </div>
-    <div id="user-info" style="display:none; font-weight:700; color:var(--primary-green)">Chào, <span id="user-name"></span></div>
-</header>
 
-<div class="container">
-    <div id="content-area">
-        <h2 style="color:var(--primary-green)">Danh sách truyện</h2>
-        <p>Chào mừng bạn! Hãy bấm nút dưới đây để bắt đầu đọc truyện chữ.</p>
-        <button class="btn" onclick="readStory()">Đọc truyện ngay</button>
+    <div id="notification-popup">
+        <b style="color:var(--primary-green)">Thông báo mới!</b>
+        <p style="font-size: 14px; margin: 10px 0;">Bạn có muốn nhận thông báo ra truyện của Bò né và Mì không?</p>
+        <div class="popup-btns">
+            <button class="btn btn-yes" onclick="closePopup()">Có</button>
+            <button class="btn btn-no" onclick="closePopup()">Không</button>
+        </div>
     </div>
-</div>
 
-<div class="modal" id="regModal">
-    <div class="modal-content">
-        <h3>Đăng ký tài khoản</h3>
-        <input type="text" id="nameInput" placeholder="Tên của bạn" style="width:100%; padding:10px; margin-bottom:10px; box-sizing:border-box">
-        <button class="btn" onclick="handleRegister()">Hoàn tất</button>
-    </div>
-</div>
+    <script>
+        // XỬ LÝ MODAL
+        function openModal(type) {
+            document.getElementById('modal-overlay').style.display = 'flex';
+            document.getElementById('login-form').style.display = (type === 'login') ? 'block' : 'none';
+            document.getElementById('register-form').style.display = (type === 'register') ? 'block' : 'none';
+        }
 
-<div id="popup">
-    <p>Bạn có muốn nhận thông báo ra truyện của Bò né và Mì không?</p>
-    <button class="btn" style="padding:5px 15px" onclick="closePopup()">Có</button>
-    <button class="btn" style="padding:5px 15px; background:#999" onclick="closePopup()">Không</button>
-</div>
+        function closeModal() {
+            document.getElementById('modal-overlay').style.display = 'none';
+        }
 
-<script>
-    // 1. Hàm hiển thị truyện (Đây là cách JavaScript vận hành truyện chữ)
-    function readStory() {
-        const noi_dung = `
-            <h2 style="text-align:center">CHƯƠNG 1: KHỞI ĐẦU</h2>
-            <p>Đây là nội dung truyện chữ của bạn. Bạn có thể viết rất nhiều dòng ở đây mà không cần lo lắng về hình ảnh.</p>
-            <p>JavaScript sẽ lấy đoạn chữ này và dán vào khung hình một cách mượt mà nhất.</p>
-            <p>Phong cách tối giản giúp người đọc tập trung hoàn toàn vào nội dung câu chuyện của Bò né và Mì...</p>
-        `;
-        document.getElementById('content-area').innerHTML = noi_dung;
-    }
+        // GIẢ LẬP ĐĂNG KÝ (Tự động đăng nhập luôn)
+        function fakeRegister() {
+            const name = document.getElementById('reg-name').value || "Thành viên mới";
+            doLoginSuccess(name);
+        }
 
-    // 2. Xử lý Đăng ký & Đăng nhập tự động
-    function showModal() { document.getElementById('regModal').style.display = 'flex'; }
-    
-    function handleRegister() {
-        const name = document.getElementById('nameInput').value || "Thành viên";
-        document.getElementById('regModal').style.display = 'none';
-        document.getElementById('auth-section').style.display = 'none';
-        document.getElementById('user-info').style.display = 'block';
-        document.getElementById('user-name').innerText = name;
-        
-        // Hiện popup thông báo ngay sau khi đăng ký xong
-        setTimeout(() => { document.getElementById('popup').style.display = 'block'; }, 1000);
-    }
+        function fakeLogin() {
+            doLoginSuccess("Người dùng");
+        }
 
-    function closePopup() { document.getElementById('popup').style.display = 'none'; }
-</script>
+        function doLoginSuccess(name) {
+            closeModal();
+            // Ẩn nút đăng nhập, hiện tên user
+            document.getElementById('auth-section').style.display = 'none';
+            document.getElementById('user-info').style.display = 'flex';
+            document.getElementById('display-name').innerText = name;
 
+            // Hiện Popup thông báo sau 1 giây khi đăng nhập/đăng ký xong
+            setTimeout(() => {
+                document.getElementById('notification-popup').style.display = 'block';
+            }, 1000);
+        }
+
+        function closePopup() {
+            document.getElementById('notification-popup').style.display = 'none';
+        }
+
+        // DARK MODE
+        const themeBtn = document.getElementById('theme-btn');
+        themeBtn.addEventListener('click', () => {
+            const isDark = document.body.hasAttribute('data-theme');
+            if (isDark) {
+                document.body.removeAttribute('data-theme');
+                themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        });
+    </script>
 </body>
 </html>
