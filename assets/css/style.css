@@ -162,19 +162,7 @@ font-weight: 800; /* Chữ siêu đậm */
             color: #fff;
         }
 
-        /* --- 4. THANH MENU (NAVIGATION) --- */
-        .nav-bar {
-            background-color: var(--bg-header);
-            border-bottom: 1px solid var(--border-color);
-            padding: 0 30px;
-            height: 55px;
-            display: flex;
-            align-items: center;
-            overflow-x: auto; /* Cuộn ngang trên điện thoại */
-transition: background-color 0.3s;
-        }
-
-    /* --- 4. THANH MENU (NAVIGATION) --- */
+/* --- 4. THANH MENU (NAVIGATION) --- */
 .nav-bar {
     background-color: var(--bg-header);
     border-bottom: 1px solid var(--border-color);
