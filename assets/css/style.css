@@ -174,26 +174,82 @@ font-weight: 800; /* Chữ siêu đậm */
 transition: background-color 0.3s;
         }
 
-        .nav-link {
-            text-decoration: none;
-            color: var(--text-main);
-            font-weight: 600;
-            font-size: 15px;
-            margin-right: 30px;
-            white-space: nowrap;
-            transition: color 0.2s;
-        }
+       /* --- 4. THANH MENU (NAVIGATION) --- */
+.nav-bar {
+    background-color: var(--bg-header);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 30px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    /* overflow-x: auto; */ /* Đã khóa dòng này để hiện dropdown */
+    transition: background-color 0.3s;
+}
 
-        .nav-link:hover {
-            color: var(--primary-green);
-        }
+.nav-link {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 15px;
+    margin-right: 30px;
+    white-space: nowrap;
+    transition: color 0.2s;
+    display: flex; /* Giúp icon căn giữa với chữ */
+    align-items: center;
+}
 
-        .nav-link i {
-            font-size: 12px;
-            margin-left: 5px;
-            color: var(--text-sub);
-        }
+.nav-link:hover {
+    color: var(--primary-green);
+}
 
+.nav-link i {
+    font-size: 12px;
+    margin-left: 5px;
+    color: var(--text-sub);
+}
+
+/* --- ĐOẠN MỚI BẠN CHÈN VÀO --- */
+.nav-item.dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%; /* Giúp vùng nhạy chuột rộng hơn */
+}
+
+.dropdown-content {
+    display: none; 
+    position: absolute;
+    background-color: var(--bg-card);
+    min-width: 180px;
+    box-shadow: var(--shadow);
+    border-radius: 12px;
+    z-index: 1100; 
+    top: 100%;
+    left: 0;
+    padding: 10px 0;
+    border: 1px solid var(--border-color);
+}
+
+.dropdown-content a {
+    color: var(--text-main);
+    padding: 10px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.2s;
+    margin-right: 0; /* Quan trọng: Xóa khoảng cách thừa bên phải */
+}
+
+.dropdown-content a:hover {
+    background-color: var(--bg-accent);
+    color: var(--primary-green);
+    padding-left: 25px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
         /* --- 5. NỘI DUNG CHÍNH --- */
         .container {
             max-width: 1200px;
