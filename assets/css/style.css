@@ -323,75 +323,81 @@ font-weight: 800; /* Chữ siêu đậm */
         box-shadow: none;
     }
 }
-/* --- 6. FOOTER (PHẦN CHÂN TRANG) --- */
+/* --- 6. FOOTER (BẢN THANH NGANG XANH LÁ) --- */
 .main-footer {
-    background-color: var(--bg-header); /* Dùng chung màu nền với header cho đồng bộ */
-    border-top: 1px solid var(--border-color);
-    padding: 20px 0; /* Chiều cao vừa đủ nội dung chữ */
+    background-color: #2D3A1F; /* Màu xanh lá đậm (Dark Green) bao toàn màn hình */
+    color: #ffffff; /* Chữ trắng cho nổi bật trên nền đậm */
+    padding: 20px 0;
     margin-top: 50px;
-    transition: all 0.3s;
+    width: 100%;
 }
 
-.footer-content {
+.footer-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Hàng trên */
+.footer-top {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Đẩy Logo sang trái, cụm info sang phải */
     align-items: center;
-    flex-wrap: wrap; /* Tự xuống dòng trên điện thoại */
-    gap: 20px;
+    padding-bottom: 15px;
 }
 
-/* Bên trái */
 .footer-logo {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: var(--primary-green);
+    font-size: 20px;
     font-weight: 800;
-    font-size: 18px;
-    margin-bottom: 5px;
 }
 
-.copyright {
-    font-size: 13px;
-    color: var(--text-sub);
+.footer-info-group {
+    display: flex;
+    align-items: center;
+    gap: 25px; /* Khoảng cách giữa các mục bên phải */
+}
+
+.footer-info-group a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.9;
+    transition: 0.3s;
+}
+
+.footer-info-group a:hover {
+    opacity: 1;
+    color: #A3B18A; /* Màu xanh nhạt hơn khi di chuột vào */
+}
+
+/* Hàng dưới */
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Đường kẻ mờ ngăn cách */
+    padding-top: 15px;
+    text-align: left; /* Để bản quyền nằm lề trái cho giống mẫu */
+}
+
+.footer-bottom p {
+    font-size: 12px;
+    opacity: 0.7;
     margin: 0;
 }
 
-/* Bên phải */
-.footer-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
-}
-
-.contact-info, .footer-links {
-    display: flex;
-    gap: 20px;
-}
-
-.footer-right a {
-    text-decoration: none;
-    color: var(--text-sub);
-    font-size: 13px;
-    transition: 0.2s;
-}
-
-.footer-right a:hover {
-    color: var(--primary-green);
-}
-
-.footer-right i {
-    margin-right: 5px;
-}
-
-/* Responsive cho điện thoại */
+/* Responsive cho điện thoại: Tự động xếp chồng khi màn hình hẹp */
 @media (max-width: 768px) {
-    .footer-content {
+    .footer-top {
         flex-direction: column;
+        gap: 20px;
         text-align: center;
     }
-    .footer-right {
-        align-items: center;
+    .footer-info-group {
+        flex-direction: column;
+        gap: 10px;
     }
 }
