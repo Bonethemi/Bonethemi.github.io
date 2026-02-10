@@ -182,7 +182,6 @@ transition: background-color 0.3s;
     height: 55px;
     display: flex;
     align-items: center;
-    /* overflow-x: auto; */ /* Đã khóa dòng này để hiện dropdown */
     transition: background-color 0.3s;
 }
 
