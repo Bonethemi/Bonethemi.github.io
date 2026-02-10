@@ -215,6 +215,24 @@ font-weight: 800; /* Chữ siêu đậm */
 .nav-item.dropdown:hover .dropdown-content {
     display: block !important;
 }
+/* Thiết kế cho các đường link bên trong bảng Thể loại */
+.dropdown-content a {
+    font-family: 'Quicksand', sans-serif; /* Ép nó dùng font chung của web */
+    color: var(--text-main);             /* Màu chữ chính */
+    padding: 12px 20px;                  /* Tạo khoảng cách để dễ bấm */
+    text-decoration: none;               /* Bỏ gạch chân xấu xí */
+    display: block;                      /* Để nó dàn hết chiều ngang bảng */
+    font-size: 14px;                     /* Chỉnh cỡ chữ cho vừa mắt */
+    font-weight: 500;                    /* Độ đậm vừa phải */
+    transition: all 0.2s;                /* Hiệu ứng mượt mà */
+}
+
+/* Hiệu ứng khi rê chuột vào từng thể loại */
+.dropdown-content a:hover {
+    background-color: var(--bg-accent);  /* Đổi màu nền nhẹ */
+    color: var(--primary-green);         /* Đổi chữ sang màu xanh rêu */
+    padding-left: 25px;                  /* Hiệu ứng đẩy nhẹ sang phải */
+}
         /* --- 5. NỘI DUNG CHÍNH --- */
         .container {
             max-width: 1200px;
