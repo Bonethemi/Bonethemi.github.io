@@ -175,6 +175,7 @@ transition: background-color 0.3s;
         }
 
        /* --- 4. THANH MENU (NAVIGATION) --- */
+/* --- 4. THANH MENU (NAVIGATION) --- */
 .nav-bar {
     background-color: var(--bg-header);
     border-bottom: 1px solid var(--border-color);
@@ -182,7 +183,9 @@ transition: background-color 0.3s;
     height: 55px;
     display: flex;
     align-items: center;
+    position: relative; /* Thêm cái này để làm gốc tọa độ */
     transition: background-color 0.3s;
+    /* overflow-x: auto;  <-- Phải khóa dòng này thì menu mới thò ra ngoài được */
 }
 
 .nav-link {
@@ -193,7 +196,7 @@ transition: background-color 0.3s;
     margin-right: 30px;
     white-space: nowrap;
     transition: color 0.2s;
-    display: flex; /* Giúp icon căn giữa với chữ */
+    display: flex;
     align-items: center;
 }
 
@@ -201,19 +204,12 @@ transition: background-color 0.3s;
     color: var(--primary-green);
 }
 
-.nav-link i {
-    font-size: 12px;
-    margin-left: 5px;
-    color: var(--text-sub);
-}
-
-/* --- SỬA LẠI ĐOẠN DROPDOWN --- */
+/* --- XỬ LÝ DROPDOWN --- */
 .nav-item.dropdown {
-    position: relative;
-    display: inline-flex; /* Chuyển thành inline-flex để nó ôm sát chữ Thể loại */
+    position: relative; /* Gốc tọa độ cho menu con */
+    display: flex;
     align-items: center;
-    height: 55px; /* Ép bằng chiều cao nav-bar để vùng rê chuột chuẩn */
-    cursor: pointer;
+    height: 100%;
 }
 
 .dropdown-content {
@@ -223,14 +219,14 @@ transition: background-color 0.3s;
     min-width: 180px;
     box-shadow: var(--shadow);
     border-radius: 12px;
-    z-index: 9999; /* Để số cực lớn để chắc chắn nó nằm trên cùng */
-    top: 55px; /* Nằm ngay dưới thanh nav */
+    z-index: 9999; 
+    top: 100%; /* Hiện ngay sát mép dưới nav-bar */
     left: 0;
     padding: 10px 0;
     border: 1px solid var(--border-color);
 }
 
-/* Sửa lại dòng này để nó nhạy hơn */
+/* HIỆU ỨNG QUAN TRỌNG: Rê chuột vào nav-item thì hiện content */
 .nav-item.dropdown:hover .dropdown-content {
     display: block !important;
 }
@@ -242,7 +238,8 @@ transition: background-color 0.3s;
     display: block !important;
     font-size: 14px;
     font-weight: 500;
-    margin-right: 0 !important; /* Xóa margin 30px từ .nav-link cũ */
+    margin-right: 0 !important; /* Triệt tiêu margin cũ */
+    transition: 0.2s;
 }
 
 .dropdown-content a:hover {
