@@ -329,3 +329,14 @@ transition: background-color 0.3s;
             font-size: 14px;
             border-radius: 20px;
         }
+/* Khi màn hình nhỏ hơn 768px (điện thoại) */
+@media (max-width: 768px) {
+    .nav-bar {
+        overflow-x: auto; /* Bật lại cái này để vuốt ngang menu chính */
+    }
+    
+    .dropdown-content {
+        position: static; /* Để menu con không bay lơ lửng mà đẩy các mục khác xuống */
+        box-shadow: none;
+    }
+}
