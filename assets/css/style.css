@@ -169,8 +169,11 @@ font-weight: 800; /* Chữ siêu đậm */
     padding: 0 30px;
     height: 55px;
     display: flex;
+    
+    /* THÊM DÒNG NÀY ĐỂ CĂN GIỮA NỘI DUNG */
+    justify-content: center; 
+    
     align-items: center;
-    /* QUAN TRỌNG NHẤT: Bắt buộc phải là visible để menu con thoát ra ngoài */
     overflow: visible !important; 
     position: relative;
     z-index: 10;
